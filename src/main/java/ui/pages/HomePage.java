@@ -7,11 +7,27 @@
  */
 package ui.pages;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
 
 public class HomePage extends BasePageObject {
+    @FindBy(linkText = "Institutions")
+    @CacheLookup
+    private WebElement linkText;
 
+    public HomePage(){
+        PageFactory.initElements(driver, this);
+        waitUntilPageObjectIsLoaded();
+    }
+
+    public boolean isPartnersDisplayed() {
+        return (linkText.getText().equalsIgnoreCase("Institutions"))? true : false;
+    }
     public void waitUntilPageObjectIsLoaded() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        wait.until(ExpectedConditions.visibilityOf(linkText));
     }
 }
