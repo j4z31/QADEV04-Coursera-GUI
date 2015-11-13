@@ -1,3 +1,10 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: jhasmanyquiroz
+ * Date: 11/10/15
+ * Time: 11:21 AM
+ * To change this template use File | Settings | File Templates.
+ */
 package framework;
 
 import org.openqa.selenium.WebDriver;
@@ -6,9 +13,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by jhasmanyquiroz on 11/10/2015.
- */
 public class BrowserManager {
     private WebDriver driver;
     private WebDriverWait wait;
@@ -16,7 +20,7 @@ public class BrowserManager {
     private static BrowserManager instance = null;
 
     protected BrowserManager() {
-            initialize();
+        initialize();
     }
 
     public static BrowserManager getInstance() {

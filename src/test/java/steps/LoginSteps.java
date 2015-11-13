@@ -1,25 +1,31 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: jhasmanyquiroz
+ * Date: 11/10/15
+ * Time: 11:00 AM
+ * To change this template use File | Settings | File Templates.
+ */
 package steps;
 
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import framework.BrowserManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import ui.PageTransporter;
 
-/**
- * Created by jhasmanyquiroz on 11/10/2015.
- */
 public class LoginSteps {
-    public BrowserManager browser = BrowserManager.getInstance();
+    public PageTransporter page = PageTransporter.getInstance();
 
     @Given("^I navigate to Login page$")
     public void navigateLoginPage(){
-        browser.getDriver().navigate().to("https://www.coursera.org/");
+        page.navigateToMainPage();
     }
 
     @When("^I login as \"(.*?)\" with password \"(.*?)\"$")
-    public void login(String userName, String userPassword){
-        WebElement text = browser.getDriver().findElement(By.tagName("data-click-key"));
+    public void loginAs(String userName, String userPassword){
+        page.navigateToLoginPage();
+    }
 
+    @Then("^I should login successfully$")
+    public void should_login_successfully(){
     }
 }
