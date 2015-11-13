@@ -7,51 +7,69 @@
  */
 package ui.pages;
 
-import framework.BrowserManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
 
 public class LoginPage extends BasePageObject {
-    private BrowserManager browser;
-    private WebElement element;
+
+    @FindBy(name = "email")
+    @CacheLookup
+    private WebElement emailInput;
+
+    @FindBy(name = "password")
+    @CacheLookup
+    private WebElement passwordInput;
+
+    @FindBy(xpath = "//button[contains(@data-js,'submit')]")
+    private  WebElement loginButton;
 
     public LoginPage() {
-        super();
-        browser = BrowserManager.getInstance();
-        //PageFactory.initElements(driver, this);
-        //waitUntilPageObjectIsLoaded();
+        PageFactory.initElements(driver, this);
+        waitUntilPageObjectIsLoaded();
     }
 
-    private void enterEmail(String email) {
-        element = browser.getDriver().findElement(By.name("email"));
-        element.clear();
-        element.sendKeys(email);
+    private LoginPage enterEmail(String email) {
+        emailInput.clear();
+        emailInput.sendKeys(email);
+        return this;
     }
 
-    private void enterPassword(String pass) {
-        element = browser.getDriver().findElement(By.name("password"));
-        element.clear();
-        element.sendKeys(pass);
+    private LoginPage enterPassword(String pass) {
+        passwordInput.clear();
+        passwordInput.sendKeys(pass);
+        return this;
     }
 
-    private void clickLogInButton() {
-        element = browser.getDriver().findElement(By.xpath("//button[contains(@data-js,'submit')]"));
-        //element = browser.getDriver().findElement(By);
-        element.click();
+    private HomePage clickLoginButtonSuccessful() {
+        loginButton.click();
+        return new HomePage();
     }
 
-    public HomePage loginAs(String email, String pass) {
+    private LoginPage clickLoginButtonFailed() {
+        loginButton.click();
+        return this;
+    }
+
+    private void login(String email, String pass) {
         enterEmail(email);
         enterPassword(pass);
-        clickLogInButton();
-        HomePage page = new HomePage();
+    }
 
-        return page;
+    public HomePage loginSuccessful(String email, String password) {
+        login(email, password);
+        return clickLoginButtonSuccessful();
+    }
+
+    public LoginPage loginFailed(String email, String password) {
+        login(email, password);
+        return clickLoginButtonFailed();
     }
 
     public void waitUntilPageObjectIsLoaded() {
-        //To change body of implemented methods use File | Settings | File Templates.
-        //wait.until();
+        wait.until(ExpectedConditions.visibilityOf(loginButton));
     }
 }
