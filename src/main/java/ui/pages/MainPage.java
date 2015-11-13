@@ -7,26 +7,43 @@
  */
 package ui.pages;
 
-import framework.BrowserManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
 
 public class MainPage extends BasePageObject {
-    private BrowserManager browser;
-    private WebElement element;
+    @FindBy(linkText = "Log In")
+    private WebElement loginButton;
+
+    @FindBy(xpath = "(//input[@value=''])[2]")
+    private  WebElement searchInput;
+
+    @FindBy(css = "i.cif-search.search-icon")
+    private WebElement searchButton;
 
     public MainPage() {
-        super();
-        browser = BrowserManager.getInstance();
+        PageFactory.initElements(driver, this);
+        waitUntilPageObjectIsLoaded();
     }
 
-    public void clickLogInButton() {
-        element = browser.getDriver().findElement(By.linkText("Log In"));
-        element.click();
+    public LoginPage clickLogInButton() {
+        loginButton.click();
+        return new LoginPage();
+    }
+
+    public MainPage setSearchCourseInput(String searchCourse) {
+        searchInput.clear();
+        searchInput.sendKeys(searchCourse);
+        return this;
+    }
+
+    public CoursesPage clickSearchButton() {
+        return new CoursesPage();
     }
 
     public void waitUntilPageObjectIsLoaded() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        wait.until(ExpectedConditions.visibilityOf(loginButton));
     }
 }
