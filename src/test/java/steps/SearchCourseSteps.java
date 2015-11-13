@@ -7,7 +7,9 @@
  */
 package steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import ui.PageTransporter;
 import ui.pages.CoursesPage;
@@ -25,5 +27,9 @@ public class SearchCourseSteps {
 
     @When("^I search a course as \"JavaScript\"$")
     public  void searchACourseAs() {
+    }
+
+    @Then("^obtain a JavaScript's list course.$")
+    public void obtainAJavaScriptSListCourse() {
     }
 }
