@@ -27,7 +27,6 @@ public class LoginSteps {
     public void navigateLoginPage(){
         mainPage = page.navigateToMainPage();
         loginPage = mainPage.clickLogInButton();
-        //loginPage = page.navigateToLoginPage();
     }
 
     @When("^I login as \"(.*?)\" with password \"(.*?)\"$")

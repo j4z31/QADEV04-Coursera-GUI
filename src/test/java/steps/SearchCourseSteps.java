@@ -7,13 +7,14 @@
  */
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import ui.PageTransporter;
 import ui.pages.CoursesPage;
 import ui.pages.MainPage;
+
+import static org.testng.Assert.assertTrue;
 
 public class SearchCourseSteps {
     private static PageTransporter page = PageTransporter.getInstance();
@@ -25,11 +26,15 @@ public class SearchCourseSteps {
         mainPage = page.navigateToMainPage();
     }
 
-    @When("^I search a course as \"JavaScript\"$")
-    public  void searchACourseAs() {
+    @When("^I search a course as \"(.*?)\"$")
+    public  void searchACourseAs(String searchCourse) {
+        coursesPage = mainPage
+                    .setSearchCourseInput(searchCourse)
+                    .clickSearchButton();
     }
 
-    @Then("^obtain a JavaScript's list course.$")
-    public void obtainAJavaScriptSListCourse() {
+    @Then("^obtain a \"(.*?)\" list course.$")
+    public void obtainAJavaScriptSListCourse(String course) {
+        assertTrue(coursesPage.coursesFinds(course), "Courses are displayed");
     }
 }

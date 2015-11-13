@@ -40,6 +40,7 @@ public class MainPage extends BasePageObject {
     }
 
     public CoursesPage clickSearchButton() {
+        searchButton.click();
         return new CoursesPage();
     }
 
