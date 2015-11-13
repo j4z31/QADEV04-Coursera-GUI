@@ -43,14 +43,10 @@ public class PageTransporter {
 
     public MainPage navigateToMainPage() {
         goToURL(baseLoginURL);
-        MainPage main = new MainPage();
-        main.clickLogInButton();
-        return main;
+        return new MainPage();
     }
 
-    public HomePage navigateToLoginPage() {
-        LoginPage login = new LoginPage();
-        login.loginAs("Jhasmany.Quiroz@fundacion-jala.org", "1c7hu57&7");
-        return new HomePage();
+    public LoginPage navigateToLoginPage() {
+        return new LoginPage();
     }
 }
