@@ -27,14 +27,19 @@ public class SearchCourseSteps {
     }
 
     @When("^I search a course as \"(.*?)\"$")
-    public  void searchACourseAs(String searchCourse) {
+    public void searchACourseAs(String searchCourse) {
         coursesPage = mainPage
                     .setSearchCourseInput(searchCourse)
                     .clickSearchButton();
     }
 
     @Then("^obtain a \"(.*?)\" list course.$")
-    public void obtainAJavaScriptSListCourse(String course) {
+    public void obtainAJavaScriptListCourse(String course) {
         assertTrue(coursesPage.coursesFinds(course), "Courses are displayed");
+    }
+
+    @Then("^don't obtain none course.$")
+    public void dontObtainNoneCourse(String course) {
+        assertTrue(coursesPage.notCourseFind(course), "Courses aren't displayed");
     }
 }

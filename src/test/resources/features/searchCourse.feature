@@ -7,3 +7,9 @@ Feature: Search any course
     Given I navigate to Main Page
     When I search a course as "JavaScript"
     Then obtain a "JavaScript" list course.
+
+  @SmokeTest
+  Scenario: Search any course but that don't is present in the list.
+    Given I navigate to Main Page
+    When I search a course as "Qwerty"
+    Then don't obtain none course.

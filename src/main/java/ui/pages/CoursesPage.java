@@ -14,8 +14,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
 
 public class CoursesPage extends BasePageObject {
-    @FindBy(className = "c-you-searched-for")
+    @FindBy(xpath = "//span[contains(@data-reactid,'.0.1.0.1.1.2.0.0')]")
     private WebElement courseSearched;
+
+    @FindBy(xpath = "//p[@data-reactid, '.0.1.0.1.1.2.0.0']")
+    private WebElement messageCourseNotFound;
 
     public CoursesPage() {
         PageFactory.initElements(driver, this);
@@ -23,7 +26,11 @@ public class CoursesPage extends BasePageObject {
     }
 
     public boolean coursesFinds(String nameCourse) {
-        return (courseSearched.getText().equalsIgnoreCase("You searched for "+nameCourse+". 31 matches"));
+        return (courseSearched.getText().equalsIgnoreCase("You searched for "+nameCourse+"."));
+    }
+
+    public boolean notCourseFind(String course) {
+        return (messageCourseNotFound.getText().equalsIgnoreCase("No Results found"));
     }
 
     public void waitUntilPageObjectIsLoaded() {
