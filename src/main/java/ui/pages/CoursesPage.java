@@ -20,6 +20,9 @@ public class CoursesPage extends BasePageObject {
     @FindBy(xpath = "//p[contains(@data-reactid, '.0.1.0.1.1.2.0.0')]")
     private WebElement messageCourseNotFound;
 
+    @FindBy(xpath = "//a[contains(@data-reactid, '.0.1.0.1.1.3:$v1-8')]")
+    private  WebElement courseFinded;
+
     public CoursesPage() {
         PageFactory.initElements(driver, this);
         waitUntilPageObjectIsLoaded();

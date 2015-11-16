@@ -14,4 +14,13 @@ Feature: Search any course
     When I search a course as "Qwerty"
     Then do not obtain "Qwerty" none course.
 
-  Scenario: 
+  Scenario: Enroll for a course.
+    Given I navigate to Main Page
+    And I login as "Jhasmany.Quiroz@fundacion-jala.org" with password "1c7hu57&7"
+    And I search a course as "Algorithms: Design and Analysis, Part 1"
+
+    When I wish to enroll in the course
+    And Sign the Coursera Honor Code.
+
+    Then I am enrolled in the course
+    #And the user receive the e-mail of course.
