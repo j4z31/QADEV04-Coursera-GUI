@@ -17,7 +17,7 @@ public class CoursesPage extends BasePageObject {
     @FindBy(xpath = "//span[contains(@data-reactid,'.0.1.0.1.1.2.0.0')]")
     private WebElement courseSearched;
 
-    @FindBy(xpath = "//p[@data-reactid, '.0.1.0.1.1.2.0.0']")
+    @FindBy(xpath = "//p[contains(@data-reactid, '.0.1.0.1.1.2.0.0')]")
     private WebElement messageCourseNotFound;
 
     public CoursesPage() {
@@ -34,7 +34,7 @@ public class CoursesPage extends BasePageObject {
     }
 
     public void waitUntilPageObjectIsLoaded() {
-        wait.until(ExpectedConditions.visibilityOf(courseSearched));
+        //wait.until(ExpectedConditions.visibilityOf());
     }
 }
 

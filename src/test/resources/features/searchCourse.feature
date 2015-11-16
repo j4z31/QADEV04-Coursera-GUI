@@ -12,4 +12,6 @@ Feature: Search any course
   Scenario: Search any course but that don't is present in the list.
     Given I navigate to Main Page
     When I search a course as "Qwerty"
-    Then don't obtain none course.
+    Then do not obtain "Qwerty" none course.
+
+  Scenario: 

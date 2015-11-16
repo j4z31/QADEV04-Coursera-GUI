@@ -38,8 +38,8 @@ public class SearchCourseSteps {
         assertTrue(coursesPage.coursesFinds(course), "Courses are displayed");
     }
 
-    @Then("^don't obtain none course.$")
-    public void dontObtainNoneCourse(String course) {
+    @Then("^do not obtain \"(.*?)\" none course.$")
+    public void doNotObtainNoneCourse(String course) {
         assertTrue(coursesPage.notCourseFind(course), "Courses aren't displayed");
     }
 }
