@@ -19,6 +19,12 @@ public class HomePage extends BasePageObject {
     @CacheLookup
     private WebElement linkText;
 
+    @FindBy(xpath = "(//input[@value=''])[2]")
+    private  WebElement searchCatalog;
+
+    @FindBy(css = "i.cif-search.c-search-icon")
+    private WebElement searchIcon;
+
     public HomePage(){
         PageFactory.initElements(driver, this);
         waitUntilPageObjectIsLoaded();
@@ -27,7 +33,19 @@ public class HomePage extends BasePageObject {
     public boolean isPartnersDisplayed() {
         return (linkText.getText().equalsIgnoreCase("Institutions"))? true : false;
     }
+
+    public HomePage setSearchCourseInput (String searchCourse) {
+        searchCatalog.clear();
+        searchCatalog.sendKeys(searchCourse);
+        return this;
+    }
+
+    public CoursesPage clickSearchButton() {
+        searchIcon.click();
+        return new CoursesPage();
+    }
+
     public void waitUntilPageObjectIsLoaded() {
-        wait.until(ExpectedConditions.visibilityOf(linkText));
+        wait.until(ExpectedConditions.visibilityOf(searchIcon));
     }
 }

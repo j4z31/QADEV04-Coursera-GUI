@@ -16,11 +16,10 @@ Feature: Search any course
 
   Scenario: Enroll for a course.
     Given I navigate to Main Page
-    And I login as "Jhasmany.Quiroz@fundacion-jala.org" with password "1c7hu57&7"
-    And I search a course as "Algorithms: Design and Analysis, Part 1"
+    And I login like "Jhasmany.Quiroz@fundacion-jala.org" with password "1c7hu57&7"
+    And I search a course like "Algorithms, Part II"
 
-    When I wish to enroll in the course
-    And Sign the Coursera Honor Code.
+    When I wish to enroll in the course "Algorithms, Part II"
 
-    Then I am enrolled in the course
+    Then go to the course enrolled.
     #And the user receive the e-mail of course.

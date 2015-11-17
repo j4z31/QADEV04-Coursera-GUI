@@ -12,10 +12,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import ui.PageTransporter;
-import ui.pages.CoursesPage;
-import ui.pages.HomePage;
-import ui.pages.LoginPage;
-import ui.pages.MainPage;
+import ui.pages.*;
 
 import static org.testng.Assert.assertTrue;
 
@@ -25,6 +22,8 @@ public class SearchCourseSteps {
     private HomePage homePage;
     private LoginPage loginPage;
     private CoursesPage coursesPage;
+    private CourseInformationPage courseInformationPage;
+    private CoursePage coursePage;
 
     @Given("^I navigate to Main Page$")
     public void navigateToMainPage() {
@@ -38,8 +37,16 @@ public class SearchCourseSteps {
                     .clickSearchButton();
     }
 
-    @When("^I login as \"(.*?)\" with password \"(.*?)\"$")
-    public void loginAs(String userName, String userPassword){
+    @When("^I search a course like \"(.*?)\"$")
+    public void searchACourseLike(String searchCourse) {
+        coursesPage = homePage
+                .setSearchCourseInput(searchCourse)
+                .clickSearchButton();
+    }
+
+    @When("^I login like \"(.*?)\" with password \"(.*?)\"$")
+    public void loginLike(String userName, String userPassword){
+        loginPage = mainPage.clickLogInButton();
         homePage = loginPage.loginSuccessful(userName, userPassword);
     }
 
@@ -54,15 +61,19 @@ public class SearchCourseSteps {
     }
 
     //Enroll the course
-    @When("^I wish to enroll in the course$")
-    public void iWishToEnrollInTheCourse() {
+    @When("^I wish to enroll in the course \"(.*?)\"$")
+    public void iWishToEnrollInTheCourse(String course) {
+        courseInformationPage = coursesPage
+                                .selectTheCourse(course)
+                                .clickEnrollButtonSuccessful();
     }
 
     @And("^Sign the Coursera Honor Code.$")
     public void signTheCourseraHonorCode() {
     }
 
-    @Then("^I am enrolled in the course$")
-    public void iAmEnrolledInTheCourse() {
+    @Then("^go to the course enrolled.$")
+    public void goToTheCourseEnrolled() {
+        coursePage = courseInformationPage.clickGoToCourseSuccessfull();
     }
 }
