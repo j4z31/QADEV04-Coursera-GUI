@@ -23,3 +23,13 @@ Feature: Search any course
 
     Then go to the course enrolled.
     #And the user receive the e-mail of course.
+
+  Scenario: Unenroll for a course
+    Given I navigate to Main Page
+      And I login like "Jhasmany.Quiroz@fundacion-jala.org" with password "1c7hu57&7"
+      And I search a course like "Algorithms, Part II"
+      And I wish to enroll in the course "Algorithms, Part II"
+      And go to the course enrolled.
+    When I navigate to Home Page
+      And I selected the course to unenroll "Algorithms, Part II"
+    Then the registered course "Algorithms, Part II" should not be present.
