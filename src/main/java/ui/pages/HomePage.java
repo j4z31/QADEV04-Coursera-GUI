@@ -25,6 +25,15 @@ public class HomePage extends BasePageObject {
     @FindBy(css = "i.cif-search.c-search-icon")
     private WebElement searchIcon;
 
+    @FindBy(xpath = "//a[contains(@data-popup-bind-open, 'click')]")
+    private  WebElement authenticatedDropdownBtn;
+
+    @FindBy(xpath = "//button[contains(@class, 'bt3-btn-link')]")
+    private  WebElement signOutBtn;
+
+    @FindBy(xpath = "//div[contains(@class, 'dashboard-has-enrollment')]")
+    private WebElement dashboardEnrollment;
+
     public HomePage(){
         PageFactory.initElements(driver, this);
         waitUntilPageObjectIsLoaded();
@@ -45,7 +54,17 @@ public class HomePage extends BasePageObject {
         return new CoursesPage();
     }
 
+    public HomePage clickAuthenticatedDropdownButton() {
+        authenticatedDropdownBtn.click();
+        return new HomePage();
+    }
+
+    public LoginPage clickSignOutButton() {
+        signOutBtn.click();
+        return new LoginPage();
+    }
+
     public void waitUntilPageObjectIsLoaded() {
-        wait.until(ExpectedConditions.visibilityOf(searchIcon));
+        wait.until(ExpectedConditions.visibilityOf(dashboardEnrollment));
     }
 }
