@@ -16,6 +16,7 @@ import ui.pages.MainPage;
 public class PageTransporter {
     private WebDriver driver = BrowserManager.getInstance().getDriver();
     private String baseLoginURL = "https://www.coursera.org/";
+    private String baseHomeURL = "https://www.coursera.org/?authMode=login";
     private static PageTransporter instance;
 
     protected PageTransporter() {
@@ -48,5 +49,10 @@ public class PageTransporter {
 
     public LoginPage navigateToLoginPage() {
         return new LoginPage();
+    }
+
+    public HomePage navigateToHomePage() {
+        goToURL(baseHomeURL);
+        return new HomePage();
     }
 }
