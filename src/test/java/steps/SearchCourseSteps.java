@@ -7,6 +7,7 @@
  */
 package steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -75,5 +76,21 @@ public class SearchCourseSteps {
     @Then("^go to the course enrolled.$")
     public void goToTheCourseEnrolled() {
         coursePage = courseInformationPage.clickGoToCourseSuccessfull();
+    }
+
+    @When("^I navigate to Home Page$")
+    public void iNavigateToHomePage() {
+        homePage = page.navigateToHomePage();
+    }
+
+    @And("^I selected the course to unenroll \"([^\"]*)\"$")
+    public void iSelectedTheCourseToUnenroll(String nameCourse) {
+        //homePage = homePage
+                    homePage.searchCourse(nameCourse);
+                    //.clickDropdownMenuCourse();
+    }
+
+    @Then("^the registered course \"([^\"]*)\" should not be present.$")
+    public void theRegisteredCourseShouldNotBePresent(String nameCourse) {
     }
 }
