@@ -7,12 +7,16 @@
  */
 package ui.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class HomePage extends BasePageObject {
     @FindBy(linkText = "Institutions")
@@ -33,6 +37,9 @@ public class HomePage extends BasePageObject {
 
     @FindBy(xpath = "//div[contains(@class, 'dashboard-has-enrollment')]")
     private WebElement dashboardEnrollment;
+
+    @FindBy(xpath = "//div[contains(@data-js, 'list-items-container')]//div")
+    private WebElement listCourses;
 
     public HomePage(){
         PageFactory.initElements(driver, this);
@@ -63,6 +70,27 @@ public class HomePage extends BasePageObject {
         signOutBtn.click();
         return new LoginPage();
     }
+
+    public boolean searchCourse(String nameCourse) {
+        boolean res = false;
+        List<WebElement> courses = listCourses.findElements(By.tagName("div"));
+        System.out.println("Cursos: " + courses);
+        Iterator<WebElement> iterator = courses.iterator();
+
+        while (iterator.hasNext() && !res) {
+            WebElement course = iterator
+                                .next()
+                                .findElement(By.xpath("//div[contains(@data-js, 'course-nameundefined')]"));
+            System.out.println("Curso: " + course.getText());
+
+            if (course.getText().equalsIgnoreCase(nameCourse))
+                res = true;
+        }
+
+        return res;
+    }
+
+    //public HomePage clickDropdownMenuCourse() {}
 
     public void waitUntilPageObjectIsLoaded() {
         wait.until(ExpectedConditions.visibilityOf(dashboardEnrollment));
