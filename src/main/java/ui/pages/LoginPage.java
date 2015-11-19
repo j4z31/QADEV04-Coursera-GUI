@@ -27,6 +27,19 @@ public class LoginPage extends BasePageObject {
     @FindBy(xpath = "//button[contains(@data-js,'submit')]")
     private  WebElement loginButton;
 
+    @FindBy(xpath = "//div[contains(@class, 'c-logo')]")
+    private WebElement logoCoursera;
+
+    @FindBy(xpath = "//div[contains(@class, 'c-user-modal-mission')]")
+    private WebElement missionCoursera;
+
+    @FindBy(xpath = "//a[contains(@data-click-key, 'account.wall.click.login')]")
+    private WebElement accountLogin;
+
+    private String nameLogoCoursera = "Coursera";
+    private String nameMissionCoursera = "Universal access to the world’s best education.";
+    private String nameAccountLogin = "Log In";
+
     public LoginPage() {
         PageFactory.initElements(driver, this);
         waitUntilPageObjectIsLoaded();
@@ -69,7 +82,19 @@ public class LoginPage extends BasePageObject {
         return clickLoginButtonFailed();
     }
 
+    public boolean isLogoCourseraPresent() {
+        return (logoCoursera.getText().equalsIgnoreCase(nameLogoCoursera));
+    }
+
+    public boolean isMissionCourseraPresent() {
+        return (missionCoursera.getText().equalsIgnoreCase(nameMissionCoursera));
+    }
+
+    public boolean isAccountLoginPresent() {
+        return (accountLogin.getText().equalsIgnoreCase(nameAccountLogin));
+    }
+
     public void waitUntilPageObjectIsLoaded() {
-        wait.until(ExpectedConditions.visibilityOf(loginButton));
+        wait.until(ExpectedConditions.visibilityOf(logoCoursera));
     }
 }
