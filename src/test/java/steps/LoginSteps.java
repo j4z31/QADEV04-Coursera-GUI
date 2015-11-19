@@ -7,6 +7,7 @@
  */
 package steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -37,5 +38,20 @@ public class LoginSteps {
     @Then("^I should login successfully.$")
     public void shouldLoginSuccessfully(){
         assertTrue(homePage.isPartnersDisplayed(), "User Name displayed");
+    }
+
+    @When("^I want to close session$")
+    public void iWantToCloseSession() {
+        loginPage = page
+                    .navigateToHomePage()
+                    .clickAuthenticatedDropdownButton()
+                    .clickSignOutButton();
+    }
+
+    @Then("^I should logout successfully.$")
+    public void iShouldLogoutSuccessfully() {
+        //assertTrue(loginPage.isLogoCourseraPresent(), "Logo Coursera Displayed.");
+        assertTrue(loginPage.isMissionCourseraPresent(), "Mission Coursera Displayed.");
+        assertTrue(loginPage.isAccountLoginPresent(), "Account Login Displayed");
     }
 }
