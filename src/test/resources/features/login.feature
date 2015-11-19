@@ -8,6 +8,16 @@ Feature: Login
     When I login as "Jhasmany.Quiroz@fundacion-jala.org" with password "1c7hu57&7"
     Then I should login successfully.
 
+  @SmokeTest
+  Scenario: Users should be able to logout
+    Given I navigate to Login page
+      And I login as "Jhasmany.Quiroz@fundacion-jala.org" with password "1c7hu57&7"
+      And I should login successfully.
+
+    When I want to close session
+
+    Then I should logout successfully.
+
   #@SmokeTest
   #Scenario Outline: Users should be able to login using valid credentials
 #    Given I navigate to Login page
