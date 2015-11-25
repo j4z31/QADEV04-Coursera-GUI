@@ -23,11 +23,11 @@ public class HomePage extends BasePageObject {
     @CacheLookup
     private WebElement linkText;
 
-    @FindBy(xpath = "(//input[@value=''])[2]")
-    private  WebElement searchCatalog;
+    @FindBy(xpath = "(//input[contains(@placeholder, 'Search catalog')])")
+    private  WebElement searchInput;
 
     @FindBy(css = "i.cif-search.c-search-icon")
-    private WebElement searchIcon;
+    private WebElement searchButton;
 
     @FindBy(xpath = "//a[contains(@data-popup-bind-open, 'click')]")
     private  WebElement authenticatedDropdownBtn;
@@ -38,8 +38,13 @@ public class HomePage extends BasePageObject {
     @FindBy(xpath = "//div[contains(@class, 'dashboard-has-enrollment')]")
     private WebElement dashboardEnrollment;
 
-    @FindBy(xpath = "//div[contains(@data-js, 'list-items-container')]//div")
-    private WebElement listCourses;
+//    @FindBy(xpath = "//div[contains(@data-js, 'list-items-container')]//div")
+//    private WebElement listCourses;
+    @FindBy(xpath = "//div[contains(@class, 'c-dashboard-membership-info-container')]")
+    private WebElement containerInfoCourse;
+
+    @FindBy(xpath = "//em[contains(@class, 'c-phoenix-dropdown-chevron')]")
+    private WebElement dropDownListCourse;
 
     public HomePage(){
         PageFactory.initElements(driver, this);
@@ -51,13 +56,13 @@ public class HomePage extends BasePageObject {
     }
 
     public HomePage setSearchCourseInput (String searchCourse) {
-        searchCatalog.clear();
-        searchCatalog.sendKeys(searchCourse);
+        searchInput.clear();
+        searchInput.sendKeys(searchCourse);
         return this;
     }
 
     public CoursesPage clickSearchButton() {
-        searchIcon.click();
+        searchButton.click();
         return new CoursesPage();
     }
 
@@ -71,23 +76,25 @@ public class HomePage extends BasePageObject {
         return new LoginPage();
     }
 
-    public boolean searchCourse(String nameCourse) {
-        boolean res = false;
-        List<WebElement> courses = listCourses.findElements(By.tagName("div"));
-        System.out.println("Cursos: " + courses);
-        Iterator<WebElement> iterator = courses.iterator();
+    public HomePage searchCourse(String nameCourse) {
+        dropDownListCourse.click();
+        return this;
+    }
 
-        while (iterator.hasNext() && !res) {
-            WebElement course = iterator
-                                .next()
-                                .findElement(By.xpath("//div[contains(@data-js, 'course-nameundefined')]"));
-            System.out.println("Curso: " + course.getText());
-
-            if (course.getText().equalsIgnoreCase(nameCourse))
-                res = true;
+    public HomePage titleCoursePresent(String nameCourse) {
+        if (isElementPresent(By.xpath("//div[contains(@data-js, 'course-nameundefined')]//div[contains(text(), '"+nameCourse+"')]"))) {
+            return this;
         }
 
-        return res;
+        return this;
+    }
+
+    private boolean isElementPresent(By byElement) {
+        try{
+            return driver.findElement(byElement)!= null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     //public HomePage clickDropdownMenuCourse() {}

@@ -17,10 +17,10 @@ public class MainPage extends BasePageObject {
     @FindBy(linkText = "Log In")
     private WebElement loginButton;
 
-    @FindBy(xpath = "(//input[@value=''])[2]")
+    @FindBy(xpath = "(//input[contains(@placeholder, 'What would you like to learn about?')])")
     private  WebElement searchInput;
 
-    @FindBy(css = "i.cif-search.search-icon")
+    @FindBy(xpath = "//a[contains(@class, 'search-submit')]")
     private WebElement searchButton;
 
     public MainPage() {

@@ -13,14 +13,11 @@ import org.openqa.selenium.support.PageFactory;
 import ui.BasePageObject;
 
 public class CoursesPage extends BasePageObject {
-    @FindBy(xpath = "//span[contains(@data-reactid, '.0.1.0.1.1.2.0.0')]")
-    private WebElement courseSearched;
-
-    @FindBy(xpath = "//p[contains(@data-reactid, '.0.1.0.1.1.2.0.0')]")
+    @FindBy(css = "div.rc-NoSearchResults > p")
     private WebElement messageCourseNotFound;
 
-    @FindBy(xpath = "//a[contains(@data-reactid, '.0.1.0.1.1.3:$v1-8')]")
-    private  WebElement courseFinded;
+    @FindBy(css = "div.c-you-searched-for > span")
+    private WebElement messageCourseFound;
 
     @FindBy(xpath = "//h2[contains(@data-reactid, '0.1.0.1.1.3:$v1-27.0.0.1.0.0')]")
     private WebElement courseSelected;
@@ -31,7 +28,7 @@ public class CoursesPage extends BasePageObject {
     }
 
     public boolean coursesFinds(String nameCourse) {
-        return (courseSearched.getText().equalsIgnoreCase("You searched for "+nameCourse+"."));
+        return (messageCourseFound.getText().equalsIgnoreCase("You searched for "+nameCourse+"."));
     }
 
     public boolean notCourseFind(String course) {
