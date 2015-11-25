@@ -7,14 +7,9 @@
  */
 package runner;
 import common.CommonMethods;
-import cucumber.api.Scenario;
 import cucumber.api.CucumberOptions;
-import cucumber.api.java.After;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriverException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -73,39 +68,5 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
     @AfterMethod
     public static void afterFeature(ITestResult result) {
         System.out.println("Ending Feature: "+isLogin);
-        // Here will compare if test is failing then only it will enter into if condition
-        if(ITestResult.FAILURE==result.getStatus())
-        {
-            try
-            {
-                // Create refernce of TakesScreenshot
-                TakesScreenshot ts=(TakesScreenshot)getInstance().getDriver();
-
-                // Call method to capture screenshot
-                File source=ts.getScreenshotAs(OutputType.FILE);
-
-                // Copy files to specific location here it will save all screenshot in our project home directory and
-                // result.getName() will return name of test case so that screenshot name will be same
-                FileUtils.copyFile(source, new File("./Screenshots/"+result.getName()+".png"));
-
-                System.out.println("Screenshot taken");
-            }
-            catch (Exception e)
-            {
-                System.out.println("Exception while taking screenshot "+e.getMessage());
-            }
-        }
-    }
-
-    @org.junit.After
-    public void embedScreenShot(Scenario scenario) {
-        try {
-            System.out.println("#########################Take a snapshot#######################");
-            byte[] screenshot = ((TakesScreenshot)getInstance().getDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.embed(screenshot, "image/png");
-            System.out.println("#######SCENARIO: "+scenario.getName());
-        } catch (WebDriverException somePlatformsDontSupportScreenshots) {
-            System.err.println(somePlatformsDontSupportScreenshots.getMessage());
-        }
     }
 }
