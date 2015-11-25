@@ -19,6 +19,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.ITestResult;
+
+import java.io.File;
+import org.apache.commons.io.FileUtils;
 
 import static framework.BrowserManager.getInstance;
 
@@ -48,9 +52,11 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
     @AfterTest
     public void afterExecution() {
         try {
+            if (isLogin) {
+                CommonMethods.logOut();
+                isLogin = false;
+            }
             System.out.println("************************GLOBAL HOOK - AFTER: "+isLogin);
-            CommonMethods.logOut();
-            isLogin = false;
         } catch (Exception e) {
             log.error("Unable to logout after execution", e);
         } finally {
@@ -59,20 +65,44 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
     }
 
     @BeforeMethod
-    public static void beforeScenario() {
+    public static void beforeFeature() {
         System.out.println("Starting Feature: "+isLogin);
     }
 
     @AfterMethod
-    public static void afterScenario() {
+    public static void afterFeature(ITestResult result) {
         System.out.println("Ending Feature: "+isLogin);
+        // Here will compare if test is failing then only it will enter into if condition
+        if(ITestResult.FAILURE==result.getStatus())
+        {
+            try
+            {
+                // Create refernce of TakesScreenshot
+                TakesScreenshot ts=(TakesScreenshot)getInstance().getDriver();
+
+                // Call method to capture screenshot
+                File source=ts.getScreenshotAs(OutputType.FILE);
+
+                // Copy files to specific location here it will save all screenshot in our project home directory and
+                // result.getName() will return name of test case so that screenshot name will be same
+                FileUtils.copyFile(source, new File("./Screenshots/"+result.getName()+".png"));
+
+                System.out.println("Screenshot taken");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Exception while taking screenshot "+e.getMessage());
+            }
+        }
     }
 
-    @After
+    @org.junit.After
     public void embedScreenShot(Scenario scenario) {
         try {
+            System.out.println("#########################Take a snapshot#######################");
             byte[] screenshot = ((TakesScreenshot)getInstance().getDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.embed(screenshot, "image/png");
+            System.out.println("#######SCENARIO: "+scenario.getName());
         } catch (WebDriverException somePlatformsDontSupportScreenshots) {
             System.err.println(somePlatformsDontSupportScreenshots.getMessage());
         }
