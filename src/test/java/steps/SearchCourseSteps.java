@@ -7,11 +7,11 @@
  */
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import runner.RunCukesTest;
 import ui.PageTransporter;
 import ui.pages.*;
 
@@ -28,7 +28,10 @@ public class SearchCourseSteps {
 
     @Given("^I navigate to Main Page$")
     public void navigateToMainPage() {
-        mainPage = page.navigateToMainPage();
+        if (RunCukesTest.isLogin)
+            homePage = page.navigateToHomePage();
+        else
+            mainPage = page.navigateToMainPage();
     }
 
     @When("^I search a course as \"(.*?)\"$")
@@ -47,8 +50,12 @@ public class SearchCourseSteps {
 
     @When("^I login like \"(.*?)\" with password \"(.*?)\"$")
     public void loginLike(String userName, String userPassword){
-        loginPage = mainPage.clickLogInButton();
-        homePage = loginPage.loginSuccessful(userName, userPassword);
+        if (!RunCukesTest.isLogin) {
+            loginPage = mainPage.clickLogInButton();
+            homePage = loginPage.loginSuccessful(userName, userPassword);
+        }
+        else
+            homePage = new HomePage();
     }
 
     @Then("^obtain a \"(.*?)\" list course.$")

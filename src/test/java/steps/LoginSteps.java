@@ -7,10 +7,10 @@
  */
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import runner.RunCukesTest;
 import ui.PageTransporter;
 import ui.pages.HomePage;
 import ui.pages.LoginPage;
@@ -26,18 +26,31 @@ public class LoginSteps {
 
     @Given("^I navigate to Login page$")
     public void navigateLoginPage(){
-        mainPage = page.navigateToMainPage();
-        loginPage = mainPage.clickLogInButton();
+        if (!RunCukesTest.isLogin) {
+            mainPage = page.navigateToMainPage();
+            loginPage = mainPage.clickLogInButton();
+            RunCukesTest.isLogin = true;
+        }
+        else {
+            homePage = new HomePage();
+        }
     }
 
     @When("^I login as \"(.*?)\" with password \"(.*?)\"$")
     public void loginAs(String userName, String userPassword){
-        homePage = loginPage.loginSuccessful(userName, userPassword);
+        if (!RunCukesTest.isLogin) {
+            homePage = loginPage.loginSuccessful(userName, userPassword);
+        }
+        else {
+            homePage = new HomePage();
+        }
+
     }
 
     @Then("^I should login successfully.$")
     public void shouldLoginSuccessfully(){
         assertTrue(homePage.isPartnersDisplayed(), "User Name displayed");
+
     }
 
     @When("^I want to close session$")
@@ -46,6 +59,7 @@ public class LoginSteps {
                     .navigateToHomePage()
                     .clickAuthenticatedDropdownButton()
                     .clickSignOutButton();
+        RunCukesTest.isLogin = false;
     }
 
     @Then("^I should logout successfully.$")
