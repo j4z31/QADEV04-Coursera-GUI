@@ -44,6 +44,7 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
             System.out.println("************************GLOBAL HOOK - BEFORE: "+isLogin);
             CommonMethods.logIn();
             isLogin = true;
+            CommonMethods.logIn();
         }catch (Exception e) {
             log.error("Unable to login before execution");
         }

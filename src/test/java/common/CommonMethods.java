@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 package common;
+
 import ui.PageTransporter;
 
 public class CommonMethods {
