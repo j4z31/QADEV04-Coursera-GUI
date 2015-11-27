@@ -121,6 +121,17 @@ public class HomePage extends BasePageObject {
         return res;
     }
 
+    public CourseInformationPage clickDropdownMenuCourseinformation() {
+        String element = courseUnenroll+"/ancestor::div[contains(@class, 'c-dashboard-membership-info-container')]//em[contains(@data-js, 'list-toggle')]";
+        WebElement unenroll = containerInfoCourse.findElement(By.xpath(element));
+        unenroll.click();
+
+        element += "/following-sibling::ul//a[contains(@data-js, 'course-info')]";
+        unenroll = containerInfoCourse.findElement(By.xpath(element));
+        unenroll.click();
+        return new CourseInformationPage();
+    }
+
     private boolean isElementPresent(By byElement) {
         try{
             return driver.findElement(byElement)!= null;

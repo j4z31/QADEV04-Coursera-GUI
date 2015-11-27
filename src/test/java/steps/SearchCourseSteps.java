@@ -109,14 +109,14 @@ public class SearchCourseSteps {
 
     @When("^I selected the course to enroll \"([^\"]*)\"$")
     public void iSelectedTheCourseToEnroll(String courseEnroll) {
-        homePage = homePage
+        courseInformationPage = homePage
                 .titleCoursePresent(courseEnroll)
-                .clickDropdownMenuCourse()
+                .clickDropdownMenuCourseinformation()
                 ;
     }
 
-    @Then("^I see the view information about the course.$")
-    public void iSeeTheViewInformationAboutTheCourse() {
-
+    @Then("^I see the view information about the course \"([^\"]*)\".$")
+    public void iSeeTheViewInformationAboutTheCourse(String titleCourse) {
+        assertTrue(courseInformationPage.isTitleCoursePresent(titleCourse), "Title Course is Present");
     }
 }
