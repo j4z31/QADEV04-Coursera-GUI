@@ -13,9 +13,7 @@ Feature: Login
     Given I navigate to Login page
       And I login as "Jhasmany.Quiroz@fundacion-jala.org" with password "1c7hu57&7"
       And I should login successfully.
-
     When I want to close session
-
     Then I should logout successfully.
 
   #@SmokeTest

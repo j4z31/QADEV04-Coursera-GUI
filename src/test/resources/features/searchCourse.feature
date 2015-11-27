@@ -22,7 +22,6 @@ Feature: Search any course
     And I search a course like "Algorithms, Part II"
     When I wish to enroll in the course "Algorithms, Part II"
     Then go to the course enrolled "Algorithms, Part II".
-    #And the user receive the e-mail of course.
 
   Scenario: Unenroll for a course
     Given I navigate to Main Page
@@ -37,16 +36,16 @@ Feature: Search any course
   Scenario: View information about Course enroll.
     Given I navigate to Main Page
     And I login like "Jhasmany.Quiroz@fundacion-jala.org" with password "1c7hu57&7"
-    And I search a course like "Algorithms, Part II"
-    And I wish to enroll in the course "Algorithms, Part II"
+    And I search a course like "Algorithms: Design and Analysis, Part 1"
+    And I wish to enroll in the course "Algorithms: Design and Analysis, Part 1"
     And I navigate to Home Page
-    When I selected the course to enroll "Algorithms, Part II"
-    Then I see the view information about the course.
+    When I selected the course to enroll "Algorithms: Design and Analysis, Part 1"
+    Then I see the view information about the course "Algorithms: Design and Analysis, Part 1".
 
   @SmokeTest
   Scenario: Search any course when a user logout.
     Given I want to close session
     And I should logout successfully.
     When I navigate to Main Page
-    And I search a course as "JavaScript"
-    Then obtain a "JavaScript" list course.
+    And I search a course as "automation"
+    Then obtain a "automation" list course.
