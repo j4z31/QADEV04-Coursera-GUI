@@ -43,6 +43,10 @@ public class HomePage extends BasePageObject {
 
     @FindBy(xpath = "//em[contains(@class, 'c-phoenix-dropdown-chevron')]")
     private WebElement dropDownListCourse;
+    private String courseUnenroll;
+
+    @FindBy(xpath = "//button[contains(@data-js, 'unenroll-confirm')]")
+    private WebElement buttonUneneroll;
 
     public HomePage(){
         PageFactory.initElements(driver, this);
@@ -80,11 +84,41 @@ public class HomePage extends BasePageObject {
     }
 
     public HomePage titleCoursePresent(String nameCourse) {
-        if (isElementPresent(By.xpath("//div[contains(@data-js, 'course-nameundefined')]//div[contains(text(), '"+nameCourse+"')]"))) {
+        courseUnenroll = "//div[contains(@data-js, 'course-nameundefined') and contains(text(), '"+nameCourse+"')]";
+        if (isElementPresent(By.xpath(courseUnenroll))) {
             return this;
         }
-
         return this;
+    }
+
+    public HomePage clickDropdownMenuCourse() {
+        String element = courseUnenroll+"/ancestor::div[contains(@class, 'c-dashboard-membership-info-container')]//em[contains(@data-js, 'list-toggle')]";
+        WebElement unenroll = containerInfoCourse.findElement(By.xpath(element));
+        unenroll.click();
+        //div[contains(@data-js, 'course-nameundefined') and contains(text(), 'Detección de objetos')]
+        // /ancestor::div[contains(@class, 'c-dashboard-membership-info-container')]
+        //em[contains(@data-js, 'list-toggle')]
+        // /following-sibling::ul//a[contains(@data-js, 'leave-course')]
+        element += "/following-sibling::ul//a[contains(@data-js, 'leave-course')]";
+        unenroll = containerInfoCourse.findElement(By.xpath(element));
+        unenroll.click();
+        return this;
+    }
+
+    public HomePage clickButtonUnenroll() {
+        buttonUneneroll.click();
+        return this;
+    }
+
+    public boolean isCourseEnroll(String nameCourse) {
+        boolean res;
+        try {
+            courseUnenroll = "//div[contains(@data-js, 'course-nameundefined') and contains(text(), '"+nameCourse+"')]";
+            res = true;
+        }catch(Exception error){
+            res = false;
+        }
+        return res;
     }
 
     private boolean isElementPresent(By byElement) {
@@ -94,8 +128,6 @@ public class HomePage extends BasePageObject {
             return false;
         }
     }
-
-    //public HomePage clickDropdownMenuCourse() {}
 
     public void waitUntilPageObjectIsLoaded() {
         wait.until(ExpectedConditions.visibilityOf(dashboardEnrollment));

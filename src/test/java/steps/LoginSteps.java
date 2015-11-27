@@ -11,7 +11,6 @@ import common.CommonMethods;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import runner.RunCukesTest;
 import ui.PageTransporter;
 import ui.pages.HomePage;
 import ui.pages.LoginPage;

@@ -12,7 +12,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import runner.RunCukesTest;
 import ui.PageTransporter;
 import ui.pages.*;
 
@@ -96,12 +95,28 @@ public class SearchCourseSteps {
 
     @And("^I selected the course to unenroll \"([^\"]*)\"$")
     public void iSelectedTheCourseToUnenroll(String nameCourse) {
-        //homePage = homePage
-                    homePage.searchCourse(nameCourse);
-                    //.clickDropdownMenuCourse();
+        homePage = homePage
+                    .titleCoursePresent(nameCourse)
+                    .clickDropdownMenuCourse()
+                    .clickButtonUnenroll()
+                    ;
     }
 
     @Then("^the registered course \"([^\"]*)\" should not be present.$")
     public void theRegisteredCourseShouldNotBePresent(String nameCourse) {
+        assertTrue(homePage.isCourseEnroll(nameCourse), "Unenroll Course");
+    }
+
+    @When("^I selected the course to enroll \"([^\"]*)\"$")
+    public void iSelectedTheCourseToEnroll(String courseEnroll) {
+        homePage = homePage
+                .titleCoursePresent(courseEnroll)
+                .clickDropdownMenuCourse()
+                ;
+    }
+
+    @Then("^I see the view information about the course.$")
+    public void iSeeTheViewInformationAboutTheCourse() {
+
     }
 }
