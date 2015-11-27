@@ -16,9 +16,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.ITestResult;
 
-import java.io.File;
-import org.apache.commons.io.FileUtils;
-
 import static framework.BrowserManager.getInstance;
 
 @CucumberOptions(
@@ -31,14 +28,10 @@ import static framework.BrowserManager.getInstance;
 public class RunCukesTest extends AbstractTestNGCucumberTests {
 
     private static Logger log = Logger.getLogger("RunCukesTest");
-    public static boolean isLogin;
 
     @BeforeTest
     public void beforeExecution() {
         try {
-            System.out.println("************************GLOBAL HOOK - BEFORE: "+isLogin);
-            CommonMethods.logIn();
-            isLogin = true;
             CommonMethods.logIn();
         }catch (Exception e) {
             log.error("Unable to login before execution");
@@ -48,11 +41,9 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
     @AfterTest
     public void afterExecution() {
         try {
-            if (isLogin) {
+            if (CommonMethods.isLogin) {
                 CommonMethods.logOut();
-                isLogin = false;
             }
-            System.out.println("************************GLOBAL HOOK - AFTER: "+isLogin);
         } catch (Exception e) {
             log.error("Unable to logout after execution", e);
         } finally {
@@ -62,11 +53,11 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
 
     @BeforeMethod
     public static void beforeFeature() {
-        System.out.println("Starting Feature: "+isLogin);
+        System.out.println("Starting Feature: "+CommonMethods.isLogin);
     }
 
     @AfterMethod
     public static void afterFeature(ITestResult result) {
-        System.out.println("Ending Feature: "+isLogin);
+        System.out.println("Ending Feature: "+CommonMethods.isLogin);
     }
 }

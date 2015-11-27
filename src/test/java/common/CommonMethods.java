@@ -11,6 +11,7 @@ import ui.PageTransporter;
 
 public class CommonMethods {
     private static PageTransporter pageTransporter = PageTransporter.getInstance();
+    public static boolean isLogin;
 
     public static void logOut() {
         pageTransporter
@@ -18,6 +19,7 @@ public class CommonMethods {
                 .clickAuthenticatedDropdownButton()
                 .clickSignOutButton()
         ;
+        isLogin = false;
     }
 
     public static void logIn() {
@@ -26,5 +28,6 @@ public class CommonMethods {
                 .clickLogInButton()
                 .loginSuccessful("Jhasmany.Quiroz@fundacion-jala.org", "1c7hu57&7")
         ;
+        isLogin = true;
     }
 }

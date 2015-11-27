@@ -10,10 +10,10 @@ import ui.BasePageObject;
  * Created by SUDO on 17/11/2015.
  */
 public class CourseInformationPage extends BasePageObject {
-    @FindBy(xpath = "//a/button")
+    @FindBy(xpath = "//button[contains(@data-js-action, 'joinForFree')]")
     private WebElement enrollButton;
 
-    @FindBy(xpath = "//a/button")
+    @FindBy(xpath = "//a[contains(@href, 'https://class.coursera.org/algs4partII-006/')]/button")
     private WebElement goToCourseButton;
 
     public CourseInformationPage() {

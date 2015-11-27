@@ -38,8 +38,6 @@ public class HomePage extends BasePageObject {
     @FindBy(xpath = "//div[contains(@class, 'dashboard-has-enrollment')]")
     private WebElement dashboardEnrollment;
 
-//    @FindBy(xpath = "//div[contains(@data-js, 'list-items-container')]//div")
-//    private WebElement listCourses;
     @FindBy(xpath = "//div[contains(@class, 'c-dashboard-membership-info-container')]")
     private WebElement containerInfoCourse;
 

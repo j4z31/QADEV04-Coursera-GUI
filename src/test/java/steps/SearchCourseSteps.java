@@ -7,6 +7,7 @@
  */
 package steps;
 
+import common.CommonMethods;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -28,10 +29,11 @@ public class SearchCourseSteps {
 
     @Given("^I navigate to Main Page$")
     public void navigateToMainPage() {
-        if (RunCukesTest.isLogin)
-            homePage = page.navigateToHomePage();
-        else
+        if (!CommonMethods.isLogin) {
             mainPage = page.navigateToMainPage();
+        }
+        else
+            homePage = page.navigateToHomePage();
     }
 
     @When("^I search a course as \"(.*?)\"$")
@@ -50,9 +52,10 @@ public class SearchCourseSteps {
 
     @When("^I login like \"(.*?)\" with password \"(.*?)\"$")
     public void loginLike(String userName, String userPassword){
-        if (!RunCukesTest.isLogin) {
+        if (!CommonMethods.isLogin) {
             loginPage = mainPage.clickLogInButton();
             homePage = loginPage.loginSuccessful(userName, userPassword);
+            CommonMethods.isLogin = true;
         }
         else
             homePage = new HomePage();
@@ -80,9 +83,10 @@ public class SearchCourseSteps {
     public void signTheCourseraHonorCode() {
     }
 
-    @Then("^go to the course enrolled.$")
-    public void goToTheCourseEnrolled() {
+    @Then("^go to the course enrolled \"(.*?)\".$")
+    public void goToTheCourseEnrolled(String courseNameEnroll) {
         coursePage = courseInformationPage.clickGoToCourseSuccessfull();
+        assertTrue(coursePage.isCourseNamePresent(courseNameEnroll), "Course enrolled");
     }
 
     @When("^I navigate to Home Page$")

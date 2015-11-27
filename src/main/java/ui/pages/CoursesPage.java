@@ -19,7 +19,7 @@ public class CoursesPage extends BasePageObject {
     @FindBy(css = "div.c-you-searched-for > span")
     private WebElement messageCourseFound;
 
-    @FindBy(xpath = "//h2[contains(@data-reactid, '0.1.0.1.1.3:$v1-27.0.0.1.0.0')]")
+    @FindBy(xpath = "//h2[contains(@class, 'headline-1-text')]")
     private WebElement courseSelected;
 
     public CoursesPage() {

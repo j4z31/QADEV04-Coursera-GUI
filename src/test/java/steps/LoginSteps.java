@@ -7,6 +7,7 @@
  */
 package steps;
 
+import common.CommonMethods;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -26,29 +27,21 @@ public class LoginSteps {
 
     @Given("^I navigate to Login page$")
     public void navigateLoginPage(){
-        if (!RunCukesTest.isLogin) {
+        if (!CommonMethods.isLogin) {
             mainPage = page.navigateToMainPage();
             loginPage = mainPage.clickLogInButton();
-            RunCukesTest.isLogin = true;
-        }
-        else {
-            homePage = new HomePage();
         }
     }
 
     @When("^I login as \"(.*?)\" with password \"(.*?)\"$")
     public void loginAs(String userName, String userPassword){
-        if (!RunCukesTest.isLogin) {
+        if (!CommonMethods.isLogin)
             homePage = loginPage.loginSuccessful(userName, userPassword);
-        }
-        else {
-            homePage = new HomePage();
-        }
-
     }
 
     @Then("^I should login successfully.$")
     public void shouldLoginSuccessfully(){
+        homePage = new HomePage();
         assertTrue(homePage.isPartnersDisplayed(), "User Name displayed");
 
     }
@@ -59,7 +52,7 @@ public class LoginSteps {
                     .navigateToHomePage()
                     .clickAuthenticatedDropdownButton()
                     .clickSignOutButton();
-        RunCukesTest.isLogin = false;
+        CommonMethods.isLogin = false;
     }
 
     @Then("^I should logout successfully.$")

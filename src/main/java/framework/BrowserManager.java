@@ -35,7 +35,7 @@ public class BrowserManager {
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 30, 1000);
+        wait = new WebDriverWait(driver, 5, 1000);
     }
 
     public void quitBrowser(){

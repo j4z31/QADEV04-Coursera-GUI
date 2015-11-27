@@ -28,5 +28,7 @@ public class GlobalHooks {
                 System.err.println(somePlatformsDontSupportScreenshots.getMessage());
             }
         }
+
+        //if (scenario.getName().equalsIgnoreCase(""))
     }
 }
