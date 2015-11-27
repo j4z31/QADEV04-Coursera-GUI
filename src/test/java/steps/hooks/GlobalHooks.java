@@ -20,10 +20,8 @@ public class GlobalHooks {
     public void embedScreenShot(Scenario scenario) {
         if (scenario.isFailed()) {
             try {
-                System.out.println("#########################Take a snapshot#######################");
                 byte[] screenshot = ((TakesScreenshot)getInstance().getDriver()).getScreenshotAs(OutputType.BYTES);
                 scenario.embed(screenshot, "image/png");
-                System.out.println("#######SCENARIO: "+scenario.getName());
             } catch (WebDriverException somePlatformsDontSupportScreenshots) {
                 System.err.println(somePlatformsDontSupportScreenshots.getMessage());
             }
