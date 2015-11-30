@@ -9,14 +9,14 @@ package ui;
 
 import framework.BrowserManager;
 import org.openqa.selenium.WebDriver;
-import ui.pages.HomePage;
-import ui.pages.LoginPage;
-import ui.pages.MainPage;
+import ui.pages.*;
 
 public class PageTransporter {
     private WebDriver driver = BrowserManager.getInstance().getDriver();
     private String baseLoginURL = "https://www.coursera.org/";
     private String baseHomeURL = "https://www.coursera.org/?authMode=login";
+    private String baseAccountProfileURL = "https://www.coursera.org/account/profile";
+    private String baseCertificateURL = "https://www.coursera.org/account/settings/signature";
     private static PageTransporter instance;
 
     protected PageTransporter() {
@@ -54,5 +54,15 @@ public class PageTransporter {
     public HomePage navigateToHomePage() {
         goToURL(baseHomeURL);
         return new HomePage();
+    }
+
+    public ProfilePage navigateToAccountProfilePage() {
+        goToURL(baseAccountProfileURL);
+        return new ProfilePage();
+    }
+
+    public CertificatePage navigateCertificatePage() {
+        goToURL(baseCertificateURL);
+        return new CertificatePage();
     }
 }

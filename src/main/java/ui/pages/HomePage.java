@@ -14,9 +14,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
-
-import java.util.Iterator;
-import java.util.List;
+import common.CommonMethods;
 
 public class HomePage extends BasePageObject {
     @FindBy(linkText = "Institutions")
@@ -78,14 +76,14 @@ public class HomePage extends BasePageObject {
         return new LoginPage();
     }
 
-    public HomePage searchCourse(String nameCourse) {
-        dropDownListCourse.click();
-        return this;
-    }
+//    public HomePage searchCourse(String nameCourse) {
+//        dropDownListCourse.click();
+//        return this;
+//    }
 
     public HomePage titleCoursePresent(String nameCourse) {
         courseUnenroll = "//div[contains(@data-js, 'course-nameundefined') and contains(text(), '"+nameCourse+"')]";
-        if (isElementPresent(By.xpath(courseUnenroll))) {
+        if (CommonMethods.isElementPresent(By.xpath(courseUnenroll))) {
             return this;
         }
         return this;
@@ -130,14 +128,6 @@ public class HomePage extends BasePageObject {
         unenroll = containerInfoCourse.findElement(By.xpath(element));
         unenroll.click();
         return new CourseInformationPage();
-    }
-
-    private boolean isElementPresent(By byElement) {
-        try{
-            return driver.findElement(byElement)!= null;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     public void waitUntilPageObjectIsLoaded() {
