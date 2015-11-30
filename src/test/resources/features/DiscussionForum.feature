@@ -7,12 +7,12 @@ Feature: Discussions Forum
       And I login like "Jhasmany.Quiroz@fundacion-jala.org" with password "1c7hu57&7"
       And I search a course like "Algorithms, Part II"
       And I wish to enroll in the course "Algorithms, Part II"
-      And go to the course enrolled.
+      And go to the course enrolled "Algorithms, Part II".
     When I navigate to Discussions Page
 
   Scenario: Presented in the course forum.
-      And I search "Please introduce yourself here".
-    Then I post my presentation in the course.
+      And I search "Welcome to Algorithms, Part II"
+    Then I post my presentation in the course "Hi my name is Jhasmany, I am from Cochabamba - Bolivia.".
 
   Scenario: Post a question in the discussion forum.
       And I create a new publication.

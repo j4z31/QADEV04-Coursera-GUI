@@ -10,11 +10,15 @@ package ui.pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
 
 public class CoursePage extends BasePageObject {
     @FindBy(xpath = "//a[contains(@class, 'course-topbanner-name')]")
     private WebElement courseName;
+
+    @FindBy(xpath = "//a[contains(@data-ab-user-convert, 'navclick_Discussion_Forums')]")
+    private WebElement lnkDiscussionForum;
 
     public CoursePage() {
         PageFactory.initElements(driver, this);
@@ -25,8 +29,13 @@ public class CoursePage extends BasePageObject {
         return courseName.getText().equalsIgnoreCase(nameCourse);
     }
 
+    public DiscussionForumPage clickDiscussionForumLink() {
+        lnkDiscussionForum.click();
+        return new DiscussionForumPage();
+    }
+
     @Override
     public void waitUntilPageObjectIsLoaded() {
-        //wait.until(ExpectedConditions.visibilityOf(linkText));
+        wait.until(ExpectedConditions.visibilityOf(courseName));
     }
 }
