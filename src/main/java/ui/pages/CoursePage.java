@@ -17,7 +17,8 @@ public class CoursePage extends BasePageObject {
     @FindBy(xpath = "//a[contains(@class, 'course-topbanner-name')]")
     private WebElement courseName;
 
-    @FindBy(xpath = "//a[contains(@data-ab-user-convert, 'navclick_Discussion_Forums')]")
+    //@FindBy(xpath = "//a[contains(@data-ab-user-convert, 'navclick_Discussion_Forums')]")
+    @FindBy(partialLinkText = "Forums")
     private WebElement lnkDiscussionForum;
 
     public CoursePage() {

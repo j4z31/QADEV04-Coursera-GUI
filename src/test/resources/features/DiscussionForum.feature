@@ -15,10 +15,10 @@ Feature: Discussions Forum
     Then I post my presentation in the course "Hi my name is Jhasmany, I am from Cochabamba - Bolivia.".
 
   Scenario: Post a question in the discussion forum.
-      And I create a new publication.
-    Then the new publication should be in the list of Course Discussions.
+      And I create a new publication with "When is assignment 10 due?" and "I have a question regarding assignments. Anybody help me".
+    Then the new publication should be in the list of Course Discussions with "When is assignment 10 due?" and "I have a question regarding assignments. Anybody help me".
 
-  Scenario: Response a question in the list of Discussions.
-      And I create a new publication
-      And I navigate to the new publication.
-    Then I write a comment in the publication.
+#  Scenario: Response a question in the list of Discussions.
+#      And I create a new publication
+#      And I navigate to the new publication.
+#    Then I write a comment in the publication.

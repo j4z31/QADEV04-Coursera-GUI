@@ -9,8 +9,10 @@ package common;
 
 import framework.BrowserManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ui.PageTransporter;
+import ui.pages.HomePage;
 
 public class CommonMethods {
     private static PageTransporter pageTransporter = PageTransporter.getInstance();
@@ -40,6 +42,25 @@ public class CommonMethods {
             return driver.findElement(byElement)!= null;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    public static boolean isCoursePresent(HomePage homePage, String nameCourse) {
+        try{
+            return homePage
+                    .titleCoursePresent(nameCourse) != null;
+        }catch (NoSuchElementException error){
+            return false;
+        }
+    }
+
+    public static void unenrollCourse(String nameCourse) {
+        if (isCoursePresent(new HomePage(), nameCourse)) {
+            pageTransporter
+                        .navigateToHomePage()
+                        .titleCoursePresent(nameCourse)
+                        .clickDropdownMenuCourse()
+                        .clickButtonUnenroll();
         }
     }
 }

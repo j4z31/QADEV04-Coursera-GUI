@@ -85,8 +85,9 @@ public class HomePage extends BasePageObject {
         courseUnenroll = "//div[contains(@data-js, 'course-nameundefined') and contains(text(), '"+nameCourse+"')]";
         if (CommonMethods.isElementPresent(By.xpath(courseUnenroll))) {
             return this;
+        }else {
+            return null;
         }
-        return this;
     }
 
     public HomePage clickDropdownMenuCourse() {

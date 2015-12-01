@@ -10,6 +10,7 @@ package ui.pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
 
 public class CoursesPage extends BasePageObject {
@@ -28,6 +29,7 @@ public class CoursesPage extends BasePageObject {
     }
 
     public boolean coursesFinds(String nameCourse) {
+        System.out.println("COURSE FIND: "+messageCourseFound.getText());
         return (messageCourseFound.getText().equalsIgnoreCase("You searched for "+nameCourse+"."));
     }
 
@@ -44,7 +46,7 @@ public class CoursesPage extends BasePageObject {
     }
 
     public void waitUntilPageObjectIsLoaded() {
-        //wait.until(ExpectedConditions.visibilityOf());
+        //wait.until(ExpectedConditions.visibilityOf(courseSelected));
     }
 }
 

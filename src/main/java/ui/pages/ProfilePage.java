@@ -101,6 +101,6 @@ public class ProfilePage extends BasePageObject {
 
     @Override
     public void waitUntilPageObjectIsLoaded() {
-        wait.until(ExpectedConditions.visibilityOf(imgPhoto));
+        //wait.until(ExpectedConditions.visibilityOf(imgPhoto));
     }
 }

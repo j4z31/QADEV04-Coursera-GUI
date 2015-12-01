@@ -9,6 +9,7 @@ package ui.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.BasePageObject;
 
@@ -16,12 +17,29 @@ public class ForumPage extends BasePageObject {
     @FindBy(linkText = "Last updated")
     private WebElement lnkLastUpdated;
 
-    @FindBy(linkText = "Welcome to Algorithms, Part II")
+    @FindBy(xpath = "//span[contains(text(), 'Welcome to Algorithms, Part II')]")
     private WebElement lnkWelcomeCourse;
 
-    public ForumEditPage clickWelcomeCourseLink() {
+    @FindBy(xpath = "//a[contains(@class, 'course-forum-thread-showmore btn')]")
+    private WebElement btnShowMore;
+
+    @FindBy(xpath = "//a[contains(@class, 'course-forum-threads-new-button')]")
+    private WebElement btnNewPost;
+
+    public ForumPage() {
+        PageFactory.initElements(driver, this);
+        waitUntilPageObjectIsLoaded();
+    }
+
+    public ForumEditPage clickWelcomeCourseLink(String topicForum) {
+        btnShowMore.click();
         lnkWelcomeCourse.click();
         return new ForumEditPage();
+    }
+
+    public NewForumPage clickNewPostButton() {
+        btnNewPost.click();
+        return new NewForumPage();
     }
 
     @Override

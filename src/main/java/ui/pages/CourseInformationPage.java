@@ -44,6 +44,6 @@ public class CourseInformationPage extends BasePageObject {
 
     @Override
     public void waitUntilPageObjectIsLoaded() {
-        //wait.until(ExpectedConditions.visibilityOf(enrollButton));
+        //wait.until(ExpectedConditions.visibilityOf(titleCourseEnroll));
     }
 }

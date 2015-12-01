@@ -33,6 +33,8 @@ public class SearchCourseSteps {
         }
         else
             homePage = page.navigateToHomePage();
+
+        System.out.println("#######################PASO: I NAVIGATE TO MAIN PAGE");
     }
 
     @When("^I search a course as \"(.*?)\"$")
@@ -44,9 +46,9 @@ public class SearchCourseSteps {
 
     @When("^I search a course like \"(.*?)\"$")
     public void searchACourseLike(String searchCourse) {
-        coursesPage = homePage
-                .setSearchCourseInput(searchCourse)
-                .clickSearchButton();
+            coursesPage = homePage
+                    .setSearchCourseInput(searchCourse)
+                    .clickSearchButton();
     }
 
     @When("^I login like \"(.*?)\" with password \"(.*?)\"$")
@@ -58,6 +60,8 @@ public class SearchCourseSteps {
         }
         else
             homePage = new HomePage();
+
+        System.out.println("#######################PASO: I LOGIN LIKE");
     }
 
     @Then("^obtain a \"(.*?)\" list course.$")
@@ -73,9 +77,15 @@ public class SearchCourseSteps {
     //Enroll the course
     @When("^I wish to enroll in the course \"(.*?)\"$")
     public void iWishToEnrollInTheCourse(String course) {
-        courseInformationPage = coursesPage
-                                .selectTheCourse(course)
-                                .clickEnrollButtonSuccessful();
+        if (!CommonMethods.isCoursePresent(homePage, course)) {
+            System.out.println("#######################PASO: I WISH TO ENROLL IN THE COURSE - NO EXISTE: "+course);
+            courseInformationPage = coursesPage
+                    .selectTheCourse(course)
+                    .clickEnrollButtonSuccessful();
+        }else {
+            System.out.println("#######################PASO: I WISH TO ENROLL IN THE COURSE - EXISTE: "+course);
+            courseInformationPage = new CourseInformationPage();
+        }
     }
 
     @And("^Sign the Coursera Honor Code.$")
@@ -84,8 +94,14 @@ public class SearchCourseSteps {
 
     @Then("^go to the course enrolled \"(.*?)\".$")
     public void goToTheCourseEnrolled(String courseNameEnroll) {
-        coursePage = courseInformationPage.clickGoToCourseSuccessfull();
-        assertTrue(coursePage.isCourseNamePresent(courseNameEnroll), "Course enrolled");
+        if (!CommonMethods.isCoursePresent(homePage, courseNameEnroll)) {
+            System.out.println("#######################PASO: GO TO THE COURSE ENROLLED - NO EXISTE: "+courseNameEnroll);
+            coursePage = courseInformationPage.clickGoToCourseSuccessfull();
+            assertTrue(coursePage.isCourseNamePresent(courseNameEnroll), "Course enrolled");
+        }else {
+            System.out.println("#######################PASO: GO TO THE COURSE ENROLLED - EXISTE: "+courseNameEnroll);
+            coursePage = page.navigateToCoursePage();
+        }
     }
 
     @When("^I navigate to Home Page$")

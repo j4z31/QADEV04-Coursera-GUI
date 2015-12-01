@@ -17,6 +17,7 @@ public class PageTransporter {
     private String baseHomeURL = "https://www.coursera.org/?authMode=login";
     private String baseAccountProfileURL = "https://www.coursera.org/account/profile";
     private String baseCertificateURL = "https://www.coursera.org/account/settings/signature";
+    private String baseCourseURL = "https://class.coursera.org/algs4partII-006";
     private static PageTransporter instance;
 
     protected PageTransporter() {
@@ -64,5 +65,10 @@ public class PageTransporter {
     public CertificatePage navigateCertificatePage() {
         goToURL(baseCertificateURL);
         return new CertificatePage();
+    }
+
+    public CoursePage navigateToCoursePage() {
+        goToURL(baseCourseURL);
+        return new CoursePage();
     }
 }
